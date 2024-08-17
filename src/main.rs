@@ -20,6 +20,13 @@ async fn main() {
     let port = config.port;
     let api_key = config.clone().api_key;
 
+    if let Some(fork_url) = config.clone().fork_url {
+        log::info!(
+            target: "ts::api",
+            "Forking from {fork_url}"
+        );
+    }
+
     let api_base = warp::path("api").and(warp::path("v1"));
 
     let api_base = if let Some(api_key) = api_key {
